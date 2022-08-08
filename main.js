@@ -79,49 +79,49 @@ starGeometry.setAttribute(
 const stars = new THREE.Points(starGeometry, starMaterial)
 scene.add(stars)
 
-camera.position.z = 14
+camera.position.z = 10
 
-function createBox({ lat, lng, country, population }) {
-    const box = new THREE.Mesh(
-        new THREE.BoxGeometry(0.2, 0.2, 0.8),
-        new THREE.MeshBasicMaterial({
-            color: '#3BF7FF',
-            opacity: 0.4,
-            transparent: true
-        })
-    )
+// function createBox({ lat, lng, country, population }) {
+//     const box = new THREE.Mesh(
+//         new THREE.BoxGeometry(0.2, 0.2, 0.8),
+//         new THREE.MeshBasicMaterial({
+//             color: '#3BF7FF',
+//             opacity: 0.4,
+//             transparent: true
+//         })
+//     )
 
-    // 23.6345° N, 102.5528° W = mexico
-    const latitude = (lat / 180) * Math.PI
-    const longitude = (lng / 180) * Math.PI
-    const radius = 5
+//     // 23.6345° N, 102.5528° W = mexico
+//     const latitude = (lat / 180) * Math.PI
+//     const longitude = (lng / 180) * Math.PI
+//     const radius = 5
 
-    const x = radius * Math.cos(latitude) * Math.sin(longitude)
-    const y = radius * Math.sin(latitude)
-    const z = radius * Math.cos(latitude) * Math.cos(longitude)
+//     const x = radius * Math.cos(latitude) * Math.sin(longitude)
+//     const y = radius * Math.sin(latitude)
+//     const z = radius * Math.cos(latitude) * Math.cos(longitude)
 
-    box.position.x = x
-    box.position.y = y
-    box.position.z = z
+//     box.position.x = x
+//     box.position.y = y
+//     box.position.z = z
 
-    box.lookAt(0, 0, 0)
-    box.geometry.applyMatrix4(new THREE.Matrix4().makeTranslation(0, 0, -0.4))
+//     box.lookAt(0, 0, 0)
+//     box.geometry.applyMatrix4(new THREE.Matrix4().makeTranslation(0, 0, -0.4))
 
-    group.add(box)
+//     group.add(box)
 
-    gsap.to(box.scale, {
-        z: 1.4,
-        duration: 2,
-        yoyo: true,
-        repeat: -1,
-        ease: 'linear',
-        delay: Math.random()
-    })
-    // box.scale.z =
+//     gsap.to(box.scale, {
+//         z: 1.4,
+//         duration: 2,
+//         yoyo: true,
+//         repeat: -1,
+//         ease: 'linear',
+//         delay: Math.random()
+//     })
+//     // box.scale.z =
 
-    box.country = country
-    box.population = population
-}
+//     box.country = country
+//     box.population = population
+// }
 
 function createBoxes(countries) {
     countries.forEach((country) => {
@@ -143,7 +143,7 @@ function createBoxes(countries) {
             })
         )
 
-        // 23.6345° N, 102.5528° W = mexico
+        // convert lat and lng to radians, then to world coordinates
         const latitude = (lat / 180) * Math.PI
         const longitude = (lng / 180) * Math.PI
         const radius = 5
@@ -181,6 +181,10 @@ function createBoxes(countries) {
 createBoxes(countries)
 
 sphere.rotation.y = -Math.PI / 2
+group.rotation.offset = {
+    x: 0,
+    y: 0
+}
 
 const mouse = {
     x: undefined,
@@ -215,20 +219,20 @@ canvasContainer.addEventListener('mousedown', ({ clientX, clientY }) => {
 })
 
 addEventListener('mousemove', (event) => {
-    // if (innerWidth >= 1280) {
-    mouse.x = ((event.clientX - innerWidth / 2) / (innerWidth / 2)) * 2 - 1
-    mouse.y = -(event.clientY / innerHeight) * 2 + 1
-    // } else {
-    //     const offset = canvasContainer.getBoundingClientRect().top
-    //     mouse.x = (event.clientX / innerWidth) * 2 - 1
-    //     mouse.y = -((event.clientY - offset) / innerHeight) * 2 + 1
-    //     console.log(mouse.y)
-    // }
+    if (innerWidth >= 1280) {
+        mouse.x = ((event.clientX - innerWidth / 2) / (innerWidth / 2)) * 2 - 1
+        mouse.y = -(event.clientY / innerHeight) * 2 + 1
+    } else {
+        const offset = canvasContainer.getBoundingClientRect().top
+        mouse.x = (event.clientX / innerWidth) * 2 - 1
+        mouse.y = -((event.clientY - offset) / innerHeight) * 2 + 1
+        console.log(mouse.y)
+    }
 
-    // gsap.set(popUpEl, {
-    //     x: event.clientX,
-    //     y: event.clientY
-    // })
+    gsap.set(popUpEl, {
+        x: event.clientX,
+        y: event.clientY
+    })
 
     if (mouse.down) {
         // event.preventDefault() is used to prevent the text on the left of the globe to get selected when the mouse is down
@@ -238,16 +242,16 @@ addEventListener('mousemove', (event) => {
         const deltaY = event.clientY - mouse.yPrev
         group.rotation.y += deltaX * 0.005
         group.rotation.x += deltaY * 0.005
-        console.log(deltaX)
+        // console.log(deltaX)
 
-        // group.rotation.offset.x += deltaY * 0.005
-        // group.rotation.offset.y += deltaX * 0.005
+        group.rotation.offset.x += deltaY * 0.005
+        group.rotation.offset.y += deltaX * 0.005
 
-        // gsap.to(group.rotation, {
-        //     y: group.rotation.offset.y,
-        //     x: group.rotation.offset.x,
-        //     duration: 2
-        // })
+        gsap.to(group.rotation, {
+            y: group.rotation.offset.y,
+            x: group.rotation.offset.x,
+            duration: 2
+        })
         mouse.xPrev = event.clientX
         mouse.yPrev = event.clientY
     }
