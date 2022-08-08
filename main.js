@@ -69,7 +69,11 @@ function animate() {
     requestAnimationFrame(animate)
     renderer.render(scene, camera)
     sphere.rotation.y += 0.001
-    group.rotation.y = mouse.x * 0.4
+    gsap.to(group.rotation, {
+        x: -mouse.y * 0.5,
+        y: mouse.x * 0.5,
+        duration: 2
+    })
 }
 
 animate()
