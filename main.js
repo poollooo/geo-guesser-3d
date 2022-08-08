@@ -22,7 +22,12 @@ const sphere = new THREE.Mesh(
     // new THREE.MeshBasicMaterial({ color: 0xFF0000 })
     new THREE.ShaderMaterial({
         vertexShader,
-        fragmentShader
+        fragmentShader,
+        uniforms: {
+            globeTexture: {
+                value: new THREE.TextureLoader().load('./img/globe.jpeg')
+            }
+        }
     })
 )
 
