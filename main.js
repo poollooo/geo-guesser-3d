@@ -131,11 +131,7 @@ function createBoxes(countries) {
         const zScale = 0.8 * scale
 
         const box = new THREE.Mesh(
-            new THREE.BoxGeometry(
-                Math.max(0.1, 0.2 * scale),
-                Math.max(0.1, 0.2 * scale),
-                Math.max(zScale, 0.4 * Math.random())
-            ),
+            new THREE.BoxGeometry(0.1, 0.1, 0.1, 1, 1, 1),
             new THREE.MeshBasicMaterial({
                 color: '#3BF7FF',
                 opacity: 0.4,
@@ -157,9 +153,10 @@ function createBoxes(countries) {
         box.position.z = z
 
         box.lookAt(0, 0, 0)
-        box.geometry.applyMatrix4(
-            new THREE.Matrix4().makeTranslation(0, 0, -zScale / 2)
-        )
+        // Add or remove distance between a country dot and the surface of the globe.
+        // box.geometry.applyMatrix4(
+        //     new THREE.Matrix4().makeTranslation(0, 0, -zScale / 2)
+        // )
 
         group.add(box)
 
@@ -175,6 +172,7 @@ function createBoxes(countries) {
 
         box.country = country.name
         box.population = new Intl.NumberFormat().format(country.population)
+        box.capital = country.capital
     })
 }
 
@@ -194,18 +192,58 @@ const mouse = {
     yPrev: undefined
 }
 
+const raycaster = new THREE.Raycaster()
 
 function animate() {
     requestAnimationFrame(animate)
     renderer.render(scene, camera)
-    // sphere.rotation.y += 0.001
+    // group.rotation.y += 0.002
+
     // if (mouse.x) {
-    //     gsap.to(group.rotation, {
-    //         x: -mouse.y * 1.5,
-    //         y: mouse.x * 1.5,
-    //         duration: 2
-    //     })
+    //   gsap.to(group.rotation, {
+    //     x: -mouse.y * 1.8,
+    //     y: mouse.x * 1.8,
+    //     duration: 2
+    //   })
     // }
+
+    // update the picking ray with the camera and mouse position
+    raycaster.setFromCamera(mouse, camera)
+    const popUpEl = document.querySelector('#popUpEl')
+    const countryElement = document.querySelector('#countryElement')
+    const countryNameElement = document.querySelector('#countryNameElement')
+
+    // calculate objects intersecting the picking ray
+    const intersects = raycaster.intersectObjects(
+        group.children.filter((mesh) => {
+            return mesh.geometry.type === 'BoxGeometry'
+        })
+    )
+
+    group.children.forEach((mesh) => {
+        mesh.material.opacity = 0.4
+    })
+
+    // doesn't show the country name if there is no hover
+    gsap.set(popUpEl, {
+        display: 'none'
+    })
+
+    for (let i = 0; i < intersects.length; i++) {
+        const box = intersects[i].object
+        box.material.opacity = 1
+        // showes the country name if the mouse is hovering hover a country box
+        gsap.set(popUpEl, {
+            display: 'block'
+        })
+
+        countryElement.innerHTML = box.country
+
+        countryNameElement.innerHTML = `Capital : ${box.capital}`
+        console.log('box is :', box)
+    }
+
+    renderer.render(scene, camera)
 }
 
 
@@ -222,11 +260,12 @@ addEventListener('mousemove', (event) => {
     if (innerWidth >= 1280) {
         mouse.x = ((event.clientX - innerWidth / 2) / (innerWidth / 2)) * 2 - 1
         mouse.y = -(event.clientY / innerHeight) * 2 + 1
+        // console.log(mouse.x)
     } else {
-        const offset = canvasContainer.getBoundingClientRect().top
+        const offset = canvasContainer.popUpElBoundingClientRect().top
         mouse.x = (event.clientX / innerWidth) * 2 - 1
         mouse.y = -((event.clientY - offset) / innerHeight) * 2 + 1
-        console.log(mouse.y)
+        // console.log(mouse.y)
     }
 
     gsap.set(popUpEl, {
