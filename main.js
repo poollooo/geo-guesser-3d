@@ -1,6 +1,8 @@
 import * as THREE from 'three'
 import vertexShader from './shaders/vertex.glsl'
 import fragmentShader from './shaders/fragment.glsl'
+import atmosphereVertexShader from './shaders/atmosphereVertex.glsl'
+import atmosphereFragmentShader from './shaders/atmosphereFragment.glsl'
 
 console.log(fragmentShader)
 
@@ -31,13 +33,31 @@ const sphere = new THREE.Mesh(
     })
 )
 
-console.log('sphere is :', sphere)
 scene.add(sphere)
+
+//create atmosphere
+const atmosphere = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 50, 50),
+    new THREE.ShaderMaterial({
+        // vertexShader: atmosphereVertexShader,
+        // fragmentShader: atmosphereFragmentShader
+        vertexShader: atmosphereVertexShader,
+        fragmentShader: atmosphereFragmentShader,
+        blending: THREE.AdditiveBlending,
+        side: THREE.BackSide
+    })
+)
+
+atmosphere.scale.set(1.1, 1.1, 1.1)
+
+scene.add(atmosphere)
+
 camera.position.z = 14
 
 function animate() {
     requestAnimationFrame(animate)
     renderer.render(scene, camera)
+    sphere.rotation.y += 0.001
 }
 
 animate()
