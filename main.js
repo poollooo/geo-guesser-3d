@@ -190,30 +190,72 @@ const mouse = {
     yPrev: undefined
 }
 
+
 function animate() {
     requestAnimationFrame(animate)
     renderer.render(scene, camera)
     // sphere.rotation.y += 0.001
-    if (mouse.x) {
-        gsap.to(group.rotation, {
-            x: -mouse.y * 1.5,
-            y: mouse.x * 1.5,
-            duration: 2
-        })
-    }
+    // if (mouse.x) {
+    //     gsap.to(group.rotation, {
+    //         x: -mouse.y * 1.5,
+    //         y: mouse.x * 1.5,
+    //         duration: 2
+    //     })
+    // }
 }
+
 
 animate()
 
+canvasContainer.addEventListener('mousedown', ({ clientX, clientY }) => {
+    mouse.down = true;
+    mouse.xPrev = clientX;
+    mouse.yPrev = clientY;
+    console.log(mouse.down)
+})
+
 addEventListener('mousemove', (event) => {
-    if (innerWidth >= 1280) {
-        mouse.x = ((event.clientX - innerWidth / 2) / (innerWidth / 2)) * 2 - 1
-        mouse.y = -(event.clientY / innerHeight) * 2 + 1
-    } else {
-        const offset = canvasContainer.getBoundingClientRect().top
-        mouse.x = (event.clientX / innerWidth) * 2 - 1
-        mouse.y = -((event.clientY - offset) / innerHeight) * 2 + 1
-        console.log(mouse.y)
+    // if (innerWidth >= 1280) {
+    mouse.x = ((event.clientX - innerWidth / 2) / (innerWidth / 2)) * 2 - 1
+    mouse.y = -(event.clientY / innerHeight) * 2 + 1
+    // } else {
+    //     const offset = canvasContainer.getBoundingClientRect().top
+    //     mouse.x = (event.clientX / innerWidth) * 2 - 1
+    //     mouse.y = -((event.clientY - offset) / innerHeight) * 2 + 1
+    //     console.log(mouse.y)
+    // }
+
+    // gsap.set(popUpEl, {
+    //     x: event.clientX,
+    //     y: event.clientY
+    // })
+
+    if (mouse.down) {
+        // event.preventDefault() is used to prevent the text on the left of the globe to get selected when the mouse is down
+        event.preventDefault()
+        // console.log('turn the earth')
+        const deltaX = event.clientX - mouse.xPrev
+        const deltaY = event.clientY - mouse.yPrev
+        group.rotation.y += deltaX * 0.005
+        group.rotation.x += deltaY * 0.005
+        console.log(deltaX)
+
+        // group.rotation.offset.x += deltaY * 0.005
+        // group.rotation.offset.y += deltaX * 0.005
+
+        // gsap.to(group.rotation, {
+        //     y: group.rotation.offset.y,
+        //     x: group.rotation.offset.x,
+        //     duration: 2
+        // })
+        mouse.xPrev = event.clientX
+        mouse.yPrev = event.clientY
     }
+
     // console.log(mouse)
+})
+
+addEventListener('mouseup', () => {
+    mouse.down = false;
+    console.log(mouse.down)
 })
