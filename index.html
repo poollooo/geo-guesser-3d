@@ -1,13 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/main.js"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- <link rel="icon" type="image/svg+xml" href="favicon.svg" /> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite App</title>
+  <link href="tailwind.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,700&family=Lato&display=swap"
+    rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .font-exo {
+      font-family: 'Exo 2', sans-serif;
+    }
+
+    .font-lato {
+      font-family: 'Lato', sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="popUpEl" class="bg-black bg-opacity-75 fixed px-4 py-2 rounded-lg">
+    <h2 class="text-white text-xs">
+      <span id="populationEl"></span>
+      <span>A <span class="italic">Pablito Studio</span> game</span>
+    </h2>
+  </div>
+  <div class="xl:flex h-screen bg-black">
+    <div class="xl:w-1/2 flex flex-col justify-center px-8 pt-16 xl:pt-0">
+      <div style="max-width:500px;" class="mx-auto">
+        <h1 class="text-white text-4xl mb-8 font-exo leading-none">
+          Ready to explore the most exotic places on earth ?
+        </h1>
+        <p class="text-gray-200 text-lg mb-8 font-lato">
+          Millions of people travel to the same places over and over again.
+          <br>
+          Think different and broaden your view of the world by discovering the most rural, remote, and beautifull
+          places in the world.
+        </p>
+        <div>
+          <a href="" class="text-white bg-blue-400 inline-block px-8 py-4 rounded font-lato">Play now</a>
+        </div>
+      </div>
+    </div>
+    <div class="h-screen w-1/2" id="canvasContainer">
+      <canvas></canvas>
+    </div>
+  </div>
+  <script type="module" src="/main.js"></script>
+</body>
+
 </html>

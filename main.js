@@ -5,19 +5,20 @@ import fragmentShader from './shaders/fragment.glsl'
 import atmosphereVertexShader from './shaders/atmosphereVertex.glsl'
 import atmosphereFragmentShader from './shaders/atmosphereFragment.glsl'
 
-console.log(fragmentShader)
+const canvasContainer = document.querySelector('#canvasContainer')
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 1000)
+const camera = new THREE.PerspectiveCamera(75, canvasContainer.offsetWidth / canvasContainer.offsetHeight, 0.1, 1000)
 
 const renderer = new THREE.WebGLRenderer(
     {
-        antialias: true
+        antialias: true,
+        canvas: document.querySelector('canvas')
     }
 )
-renderer.setSize(innerWidth, innerHeight)
+
+renderer.setSize(canvasContainer.offsetWidth, canvasContainer.offsetHeight)
 renderer.setPixelRatio(window.devicePixelRatio)
-document.body.appendChild(renderer.domElement)
 
 //create sphere
 const sphere = new THREE.Mesh(
@@ -64,7 +65,7 @@ const starVertices = []
 for (let i = 0; i < 10000; i++) {
     const x = (Math.random() - 0.5) * 2000
     const y = (Math.random() - 0.5) * 2000
-    const z = -Math.random() * 3000
+    const z = -Math.random() * 2300
     starVertices.push(x, y, z)
 }
 
@@ -89,7 +90,7 @@ const mouse = {
 function animate() {
     requestAnimationFrame(animate)
     renderer.render(scene, camera)
-    sphere.rotation.y += 0.001
+    sphere.rotation.y += 0.01
     gsap.to(group.rotation, {
         x: -mouse.y * 0.5,
         y: mouse.x * 0.5,
