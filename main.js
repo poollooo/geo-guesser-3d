@@ -253,7 +253,7 @@ function animate() {
         countryElement.innerHTML = box.country
         
         // countryNameElement.innerHTML = `${box.country}`
-        countryNameElement.innerHTML = `${box.capital}`
+        countryNameElement.innerHTML = `Capital : ${box.capital}`
         // console.log('box is :', box)
         popUpEl.addEventListener('click', () => {
             console.log('clicked inside animate function / position is :', box.country, box.position)
@@ -263,8 +263,6 @@ function animate() {
 
     renderer.render(scene, camera)
 }
-
-
 
 animate()
 
