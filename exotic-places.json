@@ -1,0 +1,51 @@
+[
+    {
+    "country": "Philippines",
+    "city": "Not sure atm",
+    "lat": 35.6839,
+    "lng": 139.7744,
+    "image": "https://static1.thetravelimages.com/wordpress/wp-content/uploads/2018/08/Conde-Nast-Traveler.jpg?q=50&fit=crop&w=1500&dpr=1.5"
+    },
+    {
+    "country": "Bolivia",
+    "city": "Laguna Colorado",
+    "lat": 8.5506,
+    "lng": 82.9528,
+    "image": "https://static1.thetravelimages.com/wordpress/wp-content/uploads/2018/08/Allibert-Trekking.jpeg?q=50&fit=crop&w=1500&dpr=1.5"
+    },
+    {
+    "country": "Venezuela",
+    "city": "Tepui",
+    "lat": 5.2101,
+    "lng": 60.8312,
+    "image": "https://static1.thetravelimages.com/wordpress/wp-content/uploads/2018/08/Lentoa.net_.jpg?q=50&fit=crop&w=1500&dpr=1.5"
+    },
+    {
+    "country": "Chile",
+    "city": "Easter Island",
+    "lat": 27.1127,
+    "lng": 109.3497,
+    "image": "https://image.cnbcfm.com/api/v1/image/106397140-1582085216779gettyimages-511506221.jpeg?v=1582085391"
+    },
+    {
+    "country": "Bolivia",
+    "city": "Salar de Uyuni",
+    "lat": 20.1338,
+    "lng": 67.4891,
+    "image": "https://media.cntraveler.com/photos/61b9ce334dff55cd8434f7ab/master/w_2580%2Cc_limit/Salar-de-Uyuni-Bolivia-GettyImages-465844068.jpg"
+    },
+    {
+    "country": "Georgia",
+    "city": "Kazbeghi",
+    "lat": 42.6603,
+    "lng": 44.6411,
+    "image": "https://i0.wp.com/www.traveldiaryparnashree.com/wp-content/uploads/2020/05/iman-gozal-5iQWgow3_S0-unsplash-scaled.jpg?resize=1080%2C675&ssl=1"
+    },
+    {
+    "country": "Maldives",
+    "city": "Vaadhoo Island",
+    "lat": 5.8570,
+    "lng": 72.9926,
+    "image": "https://media.cntraveler.com/photos/5c5c74f6b122107d7ad1a861/master/w_2580%2Cc_limit/Vaadhoo-Island%2C-Raa-Atoll%2C-Maldives%2C-Indian-Ocean_GettyImages-590485956.jpg"
+    }
+]

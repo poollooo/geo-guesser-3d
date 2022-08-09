@@ -7,6 +7,7 @@ import vertexShader from './shaders/vertex.glsl'
 import fragmentShader from './shaders/fragment.glsl'
 import atmosphereVertexShader from './shaders/atmosphereVertex.glsl'
 import atmosphereFragmentShader from './shaders/atmosphereFragment.glsl'
+import exoticPlaces from './exotic-places.json'
 
 
 const canvasContainer = document.querySelector('#canvasContainer')
@@ -126,17 +127,14 @@ camera.position.z = 10
 // }
 
 function createBoxes(countries) {
-    let counter = 0
     countries.forEach((country) => {
         const scale = country.population / 1000000000
         const lat = country.latlng[0]
         const lng = country.latlng[1]
         const zScale = 0.8 * scale
 
-        console.log(country.city, counter)
-        counter++;
         const box = new THREE.Mesh(
-            new THREE.BoxGeometry(0.08, 0.08, 0.25),
+            new THREE.BoxGeometry(0.14, 0.14, 0.25),
             new THREE.MeshBasicMaterial({
                 color: '#3BF7FF',
                 opacity: 0.4,
@@ -205,6 +203,9 @@ const mouse = {
 
 const raycaster = new THREE.Raycaster()
 const popUpEl = document.querySelector('#popUpEl')
+let countrySelected = []
+let lastCountrySelected
+
 
 function animate() {
     requestAnimationFrame(animate)
@@ -242,7 +243,7 @@ function animate() {
 
     for (let i = 0; i < intersects.length; i++) {
         const box = intersects[i].object
-        // console.log(intersects[i].object.position)
+        // console.log(intersects[i].object)
         box.material.opacity = 1
         // showes the country name if the mouse is hovering hover a country box
         gsap.set(popUpEl, {
@@ -251,18 +252,23 @@ function animate() {
 
         // countryElement.innerHTML = box.city
         countryElement.innerHTML = box.country
-        
+
         // countryNameElement.innerHTML = `${box.country}`
         countryNameElement.innerHTML = `Capital : ${box.capital}`
         // console.log('box is :', box)
-        popUpEl.addEventListener('click', () => {
-            console.log('clicked inside animate function / position is :', box.country, box.position)
+        popUpEl.addEventListener('mousedown', () => {
+            countrySelected.push(box.country)
+            lastCountrySelected = countrySelected[countrySelected.length - 1]
         })
+        popUpEl.addEventListener('mouseup', () => {
+            countrySelected = []
+        })
+        // console.log('countrySelected.length - 1 is :', countrySelected.length)
     }
-
-
     renderer.render(scene, camera)
 }
+
+
 
 animate()
 
@@ -270,7 +276,7 @@ canvasContainer.addEventListener('mousedown', ({ clientX, clientY }) => {
     mouse.down = true;
     mouse.xPrev = clientX;
     mouse.yPrev = clientY;
-    console.log(mouse.down)
+    // console.log(mouse.down)
 })
 
 addEventListener('mousemove', (event) => {
@@ -279,7 +285,7 @@ addEventListener('mousemove', (event) => {
         mouse.y = -(event.clientY / innerHeight) * 2 + 1
         // console.log(mouse.x)
     } else {
-        const offset = canvasContainer.popUpElBoundingClientRect().top
+        // const offset = canvasContainer.popUpElBoundingClientRect().top
         // mouse.x = (event.clientX / innerWidth) * 2 - 1
         // mouse.y = -((event.clientY - offset) / innerHeight) * 2 + 1
         mouse.x = ((event.clientX - innerWidth / 2) / (innerWidth / 2)) * 2 - 1
@@ -319,5 +325,70 @@ addEventListener('mousemove', (event) => {
 
 addEventListener('mouseup', () => {
     mouse.down = false;
-    console.log(mouse.down)
+    // console.log(mouse.down)
 })
+
+// Game logic
+
+// Randomly select an exotic place from the given list
+function fisherYatesShuffle(arr) {
+    for (let i = arr.length; i > 0; i--) {
+        const j = Math.floor(Math.random() * i)
+        const temp = arr[j]
+        arr[j] = arr[i - 1]
+        arr[i - 1] = temp
+    }
+}
+
+function getRandomSelection(n, array) {
+    const cloned = Array.from(array)
+    fisherYatesShuffle(cloned)
+    const selected = cloned.slice(0, n)
+    return selected
+}
+
+let randomExoticPlacesArray = getRandomSelection(6, exoticPlaces)
+
+const playButton = document.querySelector('#play-button')
+let counter = 0;
+
+playButton.addEventListener('click', () => {
+    console.log('clicked on play button')
+    console.log('first counter is :',counter)
+    let instructionTitle = document.querySelector('#instructionTitle')
+    let instruction = document.querySelector('#instruction')
+    if (counter === 0) {
+        instructionTitle.innerHTML = `Welcome traveler 🌴<br> The rules of the game are simple:`
+        instruction.innerHTML = `- You will be presented with images from the most exotic and remote places in the world.<br>- Your mission is to guess in which country the picture was taken. <br>- The closer you are, the more points you'll score!`
+        playButton.textContent = `I'm ready to play!`
+        counter++;
+        console.log('counter is', counter)
+    } else if (counter <= randomExoticPlacesArray.length) {
+        instructionTitle.innerHTML = `Thought it would be easy ?<br>Make your best guess !`
+        instruction.innerHTML = `<img class="rounded-md" src="${randomExoticPlacesArray[counter].image}">`
+        counter++;
+        console.log('counter is', counter)
+    }
+})
+
+popUpEl.addEventListener('click', () => {
+    if(checkIfCountryIsCorrect(lastCountrySelected)){
+        console.log('correct')
+        instructionTitle.innerHTML = `Congratttts!<br>You got it right!`
+        // score += 10
+        // scoreElement.innerHTML = `Score : ${score}`
+    }
+})
+
+
+function checkIfCountryIsCorrect(country) {
+    console.log('lastCountrySelected is :', country)
+    console.log('Country to find is :', randomExoticPlacesArray[counter].country)
+    if (country === randomExoticPlacesArray[counter].country) {
+        return true
+    } else {
+        return false
+    }
+}
+
+// you are presented with a Street View of somewhere in the world, and you have to guess on a map where this is in the world.
