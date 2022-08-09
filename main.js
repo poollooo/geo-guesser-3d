@@ -2,11 +2,12 @@ import './tailwind.css'
 import * as THREE from 'three'
 import gsap from 'gsap'
 import countries from './countries.json'
-import cities from './world-cities.json'
+import cities from './world-cities-filtered.json'
 import vertexShader from './shaders/vertex.glsl'
 import fragmentShader from './shaders/fragment.glsl'
 import atmosphereVertexShader from './shaders/atmosphereVertex.glsl'
 import atmosphereFragmentShader from './shaders/atmosphereFragment.glsl'
+
 
 const canvasContainer = document.querySelector('#canvasContainer')
 
@@ -124,14 +125,18 @@ camera.position.z = 10
 //     box.population = population
 // }
 
-function createBoxes(cities) {
-    cities.forEach((country) => {
+function createBoxes(countries) {
+    let counter = 0
+    countries.forEach((country) => {
         const scale = country.population / 1000000000
         const lat = country.latlng[0]
         const lng = country.latlng[1]
+        const zScale = 0.8 * scale
 
+        console.log(country.city, counter)
+        counter++;
         const box = new THREE.Mesh(
-            new THREE.BoxGeometry(0.1, 0.1, 0.1, 1, 1, 1),
+            new THREE.BoxGeometry(0.08, 0.08, 0.25),
             new THREE.MeshBasicMaterial({
                 color: '#3BF7FF',
                 opacity: 0.4,
@@ -152,7 +157,7 @@ function createBoxes(cities) {
         box.position.y = y
         box.position.z = z
 
-        box.lookAt(0, 0, 0)
+        box.lookAt(0, 0, 0.1)
         // Add or remove distance between a country dot and the surface of the globe.
         // box.geometry.applyMatrix4(
         //     new THREE.Matrix4().makeTranslation(0, 0, -zScale / 2)
@@ -170,15 +175,19 @@ function createBoxes(cities) {
         })
         // box.scale.z =
 
+        // box.city = country.city
+        // box.population = new Intl.NumberFormat().format(country.population)
+        // box.country = country.country
+        // box.latlng = country.latlng
         box.country = country.name
-        box.population = new Intl.NumberFormat().format(country.population)
         box.capital = country.capital
+        // box.population = new Intl.NumberFormat().format(country.population)
         box.latlng = country.latlng
     })
 }
 
 
-createBoxes(cities)
+createBoxes(countries)
 
 sphere.rotation.y = -Math.PI / 2
 group.rotation.offset = {
@@ -240,9 +249,11 @@ function animate() {
             display: 'block'
         })
 
+        // countryElement.innerHTML = box.city
         countryElement.innerHTML = box.country
-
-        countryNameElement.innerHTML = `Capital : ${box.capital}`
+        
+        // countryNameElement.innerHTML = `${box.country}`
+        countryNameElement.innerHTML = `${box.capital}`
         // console.log('box is :', box)
         popUpEl.addEventListener('click', () => {
             console.log('clicked inside animate function / position is :', box.country, box.position)
@@ -271,8 +282,10 @@ addEventListener('mousemove', (event) => {
         // console.log(mouse.x)
     } else {
         const offset = canvasContainer.popUpElBoundingClientRect().top
-        mouse.x = (event.clientX / innerWidth) * 2 - 1
-        mouse.y = -((event.clientY - offset) / innerHeight) * 2 + 1
+        // mouse.x = (event.clientX / innerWidth) * 2 - 1
+        // mouse.y = -((event.clientY - offset) / innerHeight) * 2 + 1
+        mouse.x = ((event.clientX - innerWidth / 2) / (innerWidth / 2)) * 2 - 1
+        mouse.y = -(event.clientY / innerHeight) * 2 + 1
         // console.log(mouse.y)
     }
 
