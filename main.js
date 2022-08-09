@@ -366,6 +366,7 @@ playButton.addEventListener('click', () => {
     } else if (counter <= randomExoticPlacesArray.length) {
         instructionTitle.innerHTML = `Thought it would be easy ?<br>Make your best guess !`
         instruction.innerHTML = `<img class="rounded-md" src="${randomExoticPlacesArray[counter].image}">`
+        // playButton.style.display = 'none'
         counter++;
         console.log('counter is', counter)
     }
@@ -375,16 +376,23 @@ popUpEl.addEventListener('click', () => {
     if(checkIfCountryIsCorrect(lastCountrySelected)){
         console.log('correct')
         instructionTitle.innerHTML = `Congratttts!<br>You got it right!`
+        playButton.set.display = 'block'
         // score += 10
+        // scoreElement.innerHTML = `Score : ${score}`
+    } else {
+        console.log('wrong')
+        instructionTitle.innerHTML = `<span class="no-wrap">Oops! You selected ${lastCountrySelected}..<br>Try again!`
+        // score -= 10
         // scoreElement.innerHTML = `Score : ${score}`
     }
 })
 
 
 function checkIfCountryIsCorrect(country) {
+    console.log('counter wazzza is', counter)
     console.log('lastCountrySelected is :', country)
-    console.log('Country to find is :', randomExoticPlacesArray[counter].country)
-    if (country === randomExoticPlacesArray[counter].country) {
+    console.log('Country to find is :', randomExoticPlacesArray[counter -1].country)
+    if (country === randomExoticPlacesArray[counter - 1].country) {
         return true
     } else {
         return false
