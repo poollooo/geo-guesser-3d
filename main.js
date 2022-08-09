@@ -285,11 +285,11 @@ addEventListener('mousemove', (event) => {
         mouse.y = -(event.clientY / innerHeight) * 2 + 1
         // console.log(mouse.x)
     } else {
-        // const offset = canvasContainer.popUpElBoundingClientRect().top
-        // mouse.x = (event.clientX / innerWidth) * 2 - 1
-        // mouse.y = -((event.clientY - offset) / innerHeight) * 2 + 1
-        mouse.x = ((event.clientX - innerWidth / 2) / (innerWidth / 2)) * 2 - 1
-        mouse.y = -(event.clientY / innerHeight) * 2 + 1
+        const offset = canvasContainer.popUpElBoundingClientRect().top
+        mouse.x = (event.clientX / innerWidth) * 2 - 1
+        mouse.y = -((event.clientY - offset) / innerHeight) * 2 + 1
+        // mouse.x = ((event.clientX - innerWidth / 2) / (innerWidth / 2)) * 2 - 1
+        // mouse.y = -(event.clientY / innerHeight) * 2 + 1
         // console.log(mouse.y)
     }
 
