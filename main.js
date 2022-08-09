@@ -134,7 +134,7 @@ function createBoxes(countries) {
         const zScale = 0.8 * scale
 
         const box = new THREE.Mesh(
-            new THREE.BoxGeometry(0.14, 0.14, 0.25),
+            new THREE.BoxGeometry(0.14, 0.14, 0.5),
             new THREE.MeshBasicMaterial({
                 color: '#3BF7FF',
                 opacity: 0.4,
@@ -155,7 +155,7 @@ function createBoxes(countries) {
         box.position.y = y
         box.position.z = z
 
-        box.lookAt(0, 0, 0.1)
+        box.lookAt(0, 0, 0)
         // Add or remove distance between a country dot and the surface of the globe.
         // box.geometry.applyMatrix4(
         //     new THREE.Matrix4().makeTranslation(0, 0, -zScale / 2)
