@@ -366,7 +366,7 @@ playButton.addEventListener('click', () => {
     } else if (counter <= randomExoticPlacesArray.length) {
         instructionTitle.innerHTML = `Thought it would be easy ?<br>Make your best guess !`
         instruction.innerHTML = `<img class="rounded-md" src="${randomExoticPlacesArray[counter].image}">`
-        // playButton.style.display = 'none'
+        playButton.style.display = 'none'
         counter++;
         console.log('counter is', counter)
     }
@@ -375,13 +375,15 @@ playButton.addEventListener('click', () => {
 popUpEl.addEventListener('click', () => {
     if(checkIfCountryIsCorrect(lastCountrySelected)){
         console.log('correct')
-        instructionTitle.innerHTML = `Congratttts!<br>You got it right!`
-        playButton.set.display = 'block'
+        instructionTitle.innerHTML = `Congratttts!<br>You got it right! See, you're not that bad after all 👏`
+        playButton.style.display = 'block'
+        playButton.classList.add('content')
+        playButton.textContent = `Show me a cool place`
         // score += 10
         // scoreElement.innerHTML = `Score : ${score}`
     } else {
         console.log('wrong')
-        instructionTitle.innerHTML = `<span class="no-wrap">Oops! You selected ${lastCountrySelected}..<br>Try again!`
+        instructionTitle.innerHTML = `<span class="no-wrap"> You selected ${lastCountrySelected}..<br>You can do better, try again!`
         // score -= 10
         // scoreElement.innerHTML = `Score : ${score}`
     }
@@ -391,7 +393,7 @@ popUpEl.addEventListener('click', () => {
 function checkIfCountryIsCorrect(country) {
     console.log('counter wazzza is', counter)
     console.log('lastCountrySelected is :', country)
-    console.log('Country to find is :', randomExoticPlacesArray[counter -1].country)
+    console.log('Country to find is :', randomExoticPlacesArray[counter - 1].country)
     if (country === randomExoticPlacesArray[counter - 1].country) {
         return true
     } else {
