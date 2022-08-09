@@ -2,6 +2,7 @@ import './tailwind.css'
 import * as THREE from 'three'
 import gsap from 'gsap'
 import countries from './countries.json'
+import cities from './world-cities.json'
 import vertexShader from './shaders/vertex.glsl'
 import fragmentShader from './shaders/fragment.glsl'
 import atmosphereVertexShader from './shaders/atmosphereVertex.glsl'
@@ -123,12 +124,11 @@ camera.position.z = 10
 //     box.population = population
 // }
 
-function createBoxes(countries) {
-    countries.forEach((country) => {
+function createBoxes(cities) {
+    cities.forEach((country) => {
         const scale = country.population / 1000000000
         const lat = country.latlng[0]
         const lng = country.latlng[1]
-        const zScale = 0.8 * scale
 
         const box = new THREE.Mesh(
             new THREE.BoxGeometry(0.1, 0.1, 0.1, 1, 1, 1),
@@ -173,10 +173,12 @@ function createBoxes(countries) {
         box.country = country.name
         box.population = new Intl.NumberFormat().format(country.population)
         box.capital = country.capital
+        box.latlng = country.latlng
     })
 }
 
-createBoxes(countries)
+
+createBoxes(cities)
 
 sphere.rotation.y = -Math.PI / 2
 group.rotation.offset = {
@@ -193,6 +195,7 @@ const mouse = {
 }
 
 const raycaster = new THREE.Raycaster()
+const popUpEl = document.querySelector('#popUpEl')
 
 function animate() {
     requestAnimationFrame(animate)
@@ -209,7 +212,6 @@ function animate() {
 
     // update the picking ray with the camera and mouse position
     raycaster.setFromCamera(mouse, camera)
-    const popUpEl = document.querySelector('#popUpEl')
     const countryElement = document.querySelector('#countryElement')
     const countryNameElement = document.querySelector('#countryNameElement')
 
@@ -231,6 +233,7 @@ function animate() {
 
     for (let i = 0; i < intersects.length; i++) {
         const box = intersects[i].object
+        // console.log(intersects[i].object.position)
         box.material.opacity = 1
         // showes the country name if the mouse is hovering hover a country box
         gsap.set(popUpEl, {
@@ -240,11 +243,16 @@ function animate() {
         countryElement.innerHTML = box.country
 
         countryNameElement.innerHTML = `Capital : ${box.capital}`
-        console.log('box is :', box)
+        // console.log('box is :', box)
+        popUpEl.addEventListener('click', () => {
+            console.log('clicked inside animate function / position is :', box.country, box.position)
+        })
     }
+
 
     renderer.render(scene, camera)
 }
+
 
 
 animate()
