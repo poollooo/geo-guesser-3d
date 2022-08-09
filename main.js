@@ -34,7 +34,7 @@ const sphere = new THREE.Mesh(
         fragmentShader,
         uniforms: {
             globeTexture: {
-                value: new THREE.TextureLoader().load('./img/globe.jpeg')
+                value: new THREE.TextureLoader().load('https://sneakmartbucket.s3.eu-west-3.amazonaws.com/globe.jpeg')
             }
         }
     })
