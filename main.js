@@ -8,6 +8,8 @@ import fragmentShader from './shaders/fragment.glsl'
 import atmosphereVertexShader from './shaders/atmosphereVertex.glsl'
 import atmosphereFragmentShader from './shaders/atmosphereFragment.glsl'
 import exoticPlaces from './exotic-places.json'
+import * as geolib from 'geolib'
+
 
 
 const canvasContainer = document.querySelector('#canvasContainer')
@@ -84,48 +86,6 @@ scene.add(stars)
 
 camera.position.z = 10
 
-// function createBox({ lat, lng, country, population }) {
-//     const box = new THREE.Mesh(
-//         new THREE.BoxGeometry(0.2, 0.2, 0.8),
-//         new THREE.MeshBasicMaterial({
-//             color: '#3BF7FF',
-//             opacity: 0.4,
-//             transparent: true
-//         })
-//     )
-
-//     // 23.6345° N, 102.5528° W = mexico
-//     const latitude = (lat / 180) * Math.PI
-//     const longitude = (lng / 180) * Math.PI
-//     const radius = 5
-
-//     const x = radius * Math.cos(latitude) * Math.sin(longitude)
-//     const y = radius * Math.sin(latitude)
-//     const z = radius * Math.cos(latitude) * Math.cos(longitude)
-
-//     box.position.x = x
-//     box.position.y = y
-//     box.position.z = z
-
-//     box.lookAt(0, 0, 0)
-//     box.geometry.applyMatrix4(new THREE.Matrix4().makeTranslation(0, 0, -0.4))
-
-//     group.add(box)
-
-//     gsap.to(box.scale, {
-//         z: 1.4,
-//         duration: 2,
-//         yoyo: true,
-//         repeat: -1,
-//         ease: 'linear',
-//         delay: Math.random()
-//     })
-//     // box.scale.z =
-
-//     box.country = country
-//     box.population = population
-// }
-
 function createBoxes(countries) {
     countries.forEach((country) => {
         const scale = country.population / 1000000000
@@ -144,22 +104,21 @@ function createBoxes(countries) {
 
         // convert lat and lng to radians, then to world coordinates
         const latitude = (lat / 180) * Math.PI
+        // console.log('latitude in radians is :', latitude)
         const longitude = (lng / 180) * Math.PI
         const radius = 5
-
+        
         const x = radius * Math.cos(latitude) * Math.sin(longitude)
+        // console.log('x :', x)
         const y = radius * Math.sin(latitude)
         const z = radius * Math.cos(latitude) * Math.cos(longitude)
 
         box.position.x = x
         box.position.y = y
         box.position.z = z
+        // console.log({x, y ,z})
 
         box.lookAt(0, 0, 0)
-        // Add or remove distance between a country dot and the surface of the globe.
-        // box.geometry.applyMatrix4(
-        //     new THREE.Matrix4().makeTranslation(0, 0, -zScale / 2)
-        // )
 
         group.add(box)
 
@@ -171,15 +130,8 @@ function createBoxes(countries) {
             ease: 'linear',
             delay: Math.random()
         })
-        // box.scale.z =
-
-        // box.city = country.city
-        // box.population = new Intl.NumberFormat().format(country.population)
-        // box.country = country.country
-        // box.latlng = country.latlng
         box.country = country.name
         box.capital = country.capital
-        // box.population = new Intl.NumberFormat().format(country.population)
         box.latlng = country.latlng
     })
 }
@@ -205,6 +157,7 @@ const raycaster = new THREE.Raycaster()
 const popUpEl = document.querySelector('#popUpEl')
 let countrySelected = []
 let lastCountrySelected
+let lastCoordinatesSelected
 
 
 function animate() {
@@ -250,15 +203,13 @@ function animate() {
             display: 'block'
         })
 
-        // countryElement.innerHTML = box.city
         countryElement.innerHTML = box.country
 
-        // countryNameElement.innerHTML = `${box.country}`
         countryNameElement.innerHTML = `Capital : ${box.capital}`
-        // console.log('box is :', box)
         popUpEl.addEventListener('mousedown', () => {
-            countrySelected.push(box.country)
-            lastCountrySelected = countrySelected[countrySelected.length - 1]
+            countrySelected.push(box)
+            lastCountrySelected = countrySelected[countrySelected.length - 1].country
+            lastCoordinatesSelected = countrySelected[countrySelected.length - 1].latlng
         })
         popUpEl.addEventListener('mouseup', () => {
             countrySelected = []
@@ -267,8 +218,6 @@ function animate() {
     }
     renderer.render(scene, camera)
 }
-
-
 
 animate()
 
@@ -345,7 +294,7 @@ function getRandomSelection(n, array) {
 }
 
 let randomExoticPlacesArray = getRandomSelection(7, exoticPlaces)
-console.log('random Array is :',randomExoticPlacesArray)
+console.log('random Array is :', randomExoticPlacesArray)
 
 const playButton = document.querySelector('#play-button')
 let counter = 0;
@@ -356,17 +305,12 @@ let scoreElement = document.querySelector('#score')
 
 playButton.addEventListener('click', () => {
     console.log('clicked on play button')
-    console.log('first counter is :',counter)
-    let instructionTitle = document.querySelector('#instructionTitle')
-    let instruction = document.querySelector('#instruction')
+    console.log('first counter is :', counter)
     if (counter === 0) {
-        gameInstructions ()
-        instruction.innerHTML = `- You will be presented with images from the most exotic and remote places in the world.<br>- Your mission is to guess in which country the picture was taken. <br>- The closer you are, the more points you'll score!`
-        playButton.textContent = `I'm ready to play!`
-        counter++;
+        gameInstructions()
         console.log('counter is', counter)
     } else if (counter <= randomExoticPlacesArray.length) {
-        scoreElement.innerHTML = `Score : ${score}`
+        scoreElement.textContent = `Score : ${score}`
         instructionTitle.innerHTML = `Thought it would be easy ?<br>Make your best guess !`
         instruction.innerHTML = `<img class="rounded-md" src="${randomExoticPlacesArray[counter].image}">`
         playButton.style.display = 'none'
@@ -376,27 +320,29 @@ playButton.addEventListener('click', () => {
 })
 
 popUpEl.addEventListener('click', () => {
-    if(checkIfCountryIsCorrect(lastCountrySelected)){
+    if (checkIfCountryIsCorrect(lastCountrySelected)) {
         console.log('correct')
         instructionTitle.innerHTML = `Congratttts!<br>You got it right! See, you're not that bad after all 👏`
         playButton.style.display = 'block'
         playButton.classList.add('content')
         playButton.textContent = `Show me a cool place`
         score += 10
-        scoreElement.innerHTML = `Score : ${score}`
+        scoreElement.textContent = `Score : ${score}`
     } else {
         console.log('wrong')
         instructionTitle.innerHTML = `<span class="no-wrap"> You selected ${lastCountrySelected}..<br>You can do better, try again!`
         score -= 10
-        scoreElement.innerHTML = `Score : ${score}`
-    } 
+        scoreElement.textContent = `Score : ${score}`
+    }
+    distance(randomExoticPlacesArray[counter - 1].latlng ,lastCoordinatesSelected)
 })
 
+// console.log('last lat', lastCoordinatesSelected[0])
+// console.log('last long', lastCoordinatesSelected[1])
 
 function checkIfCountryIsCorrect(country) {
     console.log('counter wazzza is', counter)
-    console.log('lastCountrySelected is :', country)
-    console.log('Country to find is :', randomExoticPlacesArray[counter - 1].country)
+    // console.log('lastCountrySelected is :', country)
     if (country === randomExoticPlacesArray[counter - 1].country) {
         return true
     } else {
@@ -404,9 +350,27 @@ function checkIfCountryIsCorrect(country) {
     }
 }
 
-function gameInstructions () {
+function gameInstructions() {
     instructionTitle.innerHTML = `Welcome traveler 🌴<br> The rules of the game are simple:`
     instruction.innerHTML = `- You will be presented with images from the most exotic and remote places in the world.<br>- Your mission is to guess in which country the picture was taken. <br>- The closer you are, the more points you'll score!`
     playButton.textContent = `I'm ready to play!`
     counter++;
 }
+
+let distanceInKm = 0;
+
+function distance(givenCoordinates ,userCoordinates) {
+    //return positive latitude and longitude
+    // givenCoordinates = [0,0]
+
+    console.log('coordinate that should be negative are', userCoordinates)
+    console.log('Positive coordinates which should be positive are :', userCoordinates)
+    distanceInKm = Math.floor(geolib.getDistance(givenCoordinates, userCoordinates) / 1000)
+    console.log('distance in km is ', distanceInKm)
+    return distanceInKm;
+}
+
+console.log('distance is :', distanceInKm)
+
+
+
