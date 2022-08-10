@@ -977,7 +977,7 @@
             {
                 "iso639_1": "pa",
                 "iso639_2": "pan",
-                "name": "(Eastern) Punjabi",
+                "name": "Eastern Punjabi",
                 "nativeName": "ਪੰਜਾਬੀ"
             }
         ],
@@ -2647,7 +2647,7 @@
         "cioc": ""
     },
     {
-        "name": "Virgin Islands (British)",
+        "name": "British Virgin Islands",
         "topLevelDomain": [
             ".vg"
         ],
@@ -2713,7 +2713,7 @@
         "cioc": "IVB"
     },
     {
-        "name": "Virgin Islands (U.S.)",
+        "name": "US Virgin Islands",
         "topLevelDomain": [
             ".vi"
         ],
@@ -3908,7 +3908,7 @@
         "cioc": ""
     },
     {
-        "name": "Cocos (Keeling) Islands",
+        "name": "Cocos Islands",
         "topLevelDomain": [
             ".cc"
         ],
@@ -4245,7 +4245,7 @@
         "cioc": "CGO"
     },
     {
-        "name": "Congo (Democratic Republic of the)",
+        "name": "Congo",
         "topLevelDomain": [
             ".cd"
         ],
@@ -10402,7 +10402,7 @@
         "cioc": ""
     },
     {
-        "name": "Macedonia (the former Yugoslav Republic of)",
+        "name": "Macedonia",
         "topLevelDomain": [
             ".mk"
         ],
@@ -11410,7 +11410,7 @@
         "cioc": "MEX"
     },
     {
-        "name": "Micronesia (Federated States of)",
+        "name": "Micronesia",
         "topLevelDomain": [
             ".fm"
         ],

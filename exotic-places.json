@@ -1,17 +1,10 @@
 [
     {
-    "country": "Philippines",
-    "city": "Not sure atm",
-    "lat": 35.6839,
-    "lng": 139.7744,
-    "image": "https://static1.thetravelimages.com/wordpress/wp-content/uploads/2018/08/Conde-Nast-Traveler.jpg?q=50&fit=crop&w=1500&dpr=1.5"
-    },
-    {
-    "country": "Bolivia",
-    "city": "Laguna Colorado",
-    "lat": 8.5506,
-    "lng": 82.9528,
-    "image": "https://static1.thetravelimages.com/wordpress/wp-content/uploads/2018/08/Allibert-Trekking.jpeg?q=50&fit=crop&w=1500&dpr=1.5"
+    "country": "Colombia",
+    "city": "Medellin",
+    "lat": 6.2476,
+    "lng": 75.5658,
+    "image": "https://cdn.vox-cdn.com/thumbor/lZfsDbUWteyO86SLX9vZ2v1KyT4=/0x0:2700x1800/1200x0/filters:focal(0x0:2700x1800):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7043223/NARCOS_207_00658R.jpg"
     },
     {
     "country": "Venezuela",
@@ -47,5 +40,12 @@
     "lat": 5.8570,
     "lng": 72.9926,
     "image": "https://media.cntraveler.com/photos/5c5c74f6b122107d7ad1a861/master/w_2580%2Cc_limit/Vaadhoo-Island%2C-Raa-Atoll%2C-Maldives%2C-Indian-Ocean_GettyImages-590485956.jpg"
+    },
+    {
+    "country": "United States of America",
+    "city": "Hawkins",
+    "lat": 32.5885,
+    "lng": 95.2041,
+    "image": "https://cms.kerrang.com/images/Eddie-Stranger-Things-4-Master-Of-Puppets-Upside-Down-scene.jpg"
     }
 ]
