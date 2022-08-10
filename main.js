@@ -352,6 +352,10 @@ console.log('random Array is :',randomExoticPlacesArray)
 
 const playButton = document.querySelector('#play-button')
 let counter = 0;
+let score = 0;
+let instructionTitle = document.querySelector('#instructionTitle')
+let instruction = document.querySelector('#instruction')
+let scoreElement = document.querySelector('#score')
 
 playButton.addEventListener('click', () => {
     console.log('clicked on play button')
@@ -359,12 +363,13 @@ playButton.addEventListener('click', () => {
     let instructionTitle = document.querySelector('#instructionTitle')
     let instruction = document.querySelector('#instruction')
     if (counter === 0) {
-        instructionTitle.innerHTML = `Welcome traveler 🌴<br> The rules of the game are simple:`
+        gameInstructions ()
         instruction.innerHTML = `- You will be presented with images from the most exotic and remote places in the world.<br>- Your mission is to guess in which country the picture was taken. <br>- The closer you are, the more points you'll score!`
         playButton.textContent = `I'm ready to play!`
         counter++;
         console.log('counter is', counter)
     } else if (counter <= randomExoticPlacesArray.length) {
+        scoreElement.innerHTML = `Score : ${score}`
         instructionTitle.innerHTML = `Thought it would be easy ?<br>Make your best guess !`
         instruction.innerHTML = `<img class="rounded-md" src="${randomExoticPlacesArray[counter].image}">`
         playButton.style.display = 'none'
@@ -380,14 +385,14 @@ popUpEl.addEventListener('click', () => {
         playButton.style.display = 'block'
         playButton.classList.add('content')
         playButton.textContent = `Show me a cool place`
-        // score += 10
-        // scoreElement.innerHTML = `Score : ${score}`
+        score += 10
+        scoreElement.innerHTML = `Score : ${score}`
     } else {
         console.log('wrong')
         instructionTitle.innerHTML = `<span class="no-wrap"> You selected ${lastCountrySelected}..<br>You can do better, try again!`
-        // score -= 10
-        // scoreElement.innerHTML = `Score : ${score}`
-    }
+        score -= 10
+        scoreElement.innerHTML = `Score : ${score}`
+    } 
 })
 
 
@@ -402,4 +407,9 @@ function checkIfCountryIsCorrect(country) {
     }
 }
 
-// you are presented with a Street View of somewhere in the world, and you have to guess on a map where this is in the world.
+function gameInstructions () {
+    instructionTitle.innerHTML = `Welcome traveler 🌴<br> The rules of the game are simple:`
+    instruction.innerHTML = `- You will be presented with images from the most exotic and remote places in the world.<br>- Your mission is to guess in which country the picture was taken. <br>- The closer you are, the more points you'll score!`
+    playButton.textContent = `I'm ready to play!`
+    counter++;
+}
