@@ -321,21 +321,23 @@ playButton.addEventListener('click', () => {
 })
 
 popUpEl.addEventListener('click', () => {
-    if (checkIfCountryIsCorrect(lastCountrySelected)) {
-        console.log('correct')
-        instructionTitle.innerHTML = `Congratttts!<br>You got it right! See, you're not that bad after all 👏`
-        playButton.style.display = 'block'
-        playButton.classList.add('content')
-        playButton.textContent = `Show me a cool place`
-        score += Math.floor((0.1* distanceInKm))
-        console.log('score is', score)
-        scoreElement.textContent = `Score : ${score}`
-    } else {
-        console.log('wrong')
-        instructionTitle.innerHTML = `<span class="no-wrap"> You selected ${lastCountrySelected} which is ${distanceInKm} kms away..<br>You can do better, try again!`
-        score += Math.floor((-0.1 * distanceInKm))
-        console.log('score is', score)
-        scoreElement.textContent = `Score : ${score}`
+    if (counter >= 2) {
+        if (checkIfCountryIsCorrect(lastCountrySelected)) {
+            console.log('correct')
+            instructionTitle.innerHTML = `Congratttts!<br>You got it right! See, you're not that bad after all 👏`
+            playButton.style.display = 'block'
+            playButton.classList.add('content')
+            playButton.textContent = `Show me a cool place`
+            score += Math.floor((0.1* distanceInKm))
+            console.log('score is', score)
+            scoreElement.textContent = `Score : ${score}`
+        } else {
+            console.log('wrong')
+            instructionTitle.innerHTML = `<span class="no-wrap"> You selected ${lastCountrySelected} which is ${distanceInKm} kms away..<br>You can do better, try again!`
+            score += Math.floor((-0.1 * distanceInKm))
+            console.log('score is', score)
+            scoreElement.textContent = `Score : ${score}`
+        }
     }
     distance(randomExoticPlacesArray[counter - 1].latlng ,lastCoordinatesSelected)
 })
