@@ -328,7 +328,7 @@ popUpEl.addEventListener('click', () => {
             playButton.style.display = 'block'
             playButton.classList.add('content')
             playButton.textContent = `Show me a cool place`
-            score += Math.floor((0.1* distanceInKm))
+            score += Math.floor((10 * distanceInKm))
             console.log('score is', score)
             scoreElement.textContent = `Score : ${score}`
         } else {
