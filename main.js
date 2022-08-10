@@ -302,6 +302,7 @@ let score = 0;
 let instructionTitle = document.querySelector('#instructionTitle')
 let instruction = document.querySelector('#instruction')
 let scoreElement = document.querySelector('#score')
+let distanceInKm = 0;
 
 playButton.addEventListener('click', () => {
     console.log('clicked on play button')
@@ -326,12 +327,14 @@ popUpEl.addEventListener('click', () => {
         playButton.style.display = 'block'
         playButton.classList.add('content')
         playButton.textContent = `Show me a cool place`
-        score += 10
+        score += Math.floor((0.1* distanceInKm))
+        console.log('score is', score)
         scoreElement.textContent = `Score : ${score}`
     } else {
         console.log('wrong')
-        instructionTitle.innerHTML = `<span class="no-wrap"> You selected ${lastCountrySelected}..<br>You can do better, try again!`
-        score -= 10
+        instructionTitle.innerHTML = `<span class="no-wrap"> You selected ${lastCountrySelected} which is ${distanceInKm} kms away..<br>You can do better, try again!`
+        score += Math.floor((-0.1 * distanceInKm))
+        console.log('score is', score)
         scoreElement.textContent = `Score : ${score}`
     }
     distance(randomExoticPlacesArray[counter - 1].latlng ,lastCoordinatesSelected)
@@ -357,7 +360,7 @@ function gameInstructions() {
     counter++;
 }
 
-let distanceInKm = 0;
+
 
 function distance(givenCoordinates ,userCoordinates) {
     //return positive latitude and longitude
@@ -367,7 +370,6 @@ function distance(givenCoordinates ,userCoordinates) {
     console.log('Positive coordinates which should be positive are :', userCoordinates)
     distanceInKm = Math.floor(geolib.getDistance(givenCoordinates, userCoordinates) / 1000)
     console.log('distance in km is ', distanceInKm)
-    return distanceInKm;
 }
 
 console.log('distance is :', distanceInKm)
