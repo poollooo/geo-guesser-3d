@@ -478,6 +478,14 @@ button,
  * outline in Firefox by default.
  */
 
+ .mt-minus {
+  margin-top: -8px;
+}
+
+.ml-minus {
+  margin-left: -5px;
+}
+
 :-moz-focusring {
   outline: auto;
 }
