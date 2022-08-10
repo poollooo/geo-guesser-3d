@@ -304,9 +304,6 @@ addEventListener('mousemove', (event) => {
         // console.log('turn the earth')
         const deltaX = event.clientX - mouse.xPrev
         const deltaY = event.clientY - mouse.yPrev
-        group.rotation.y += deltaX * 0.005
-        group.rotation.x += deltaY * 0.005
-        // console.log(deltaX)
 
         group.rotation.offset.x += deltaY * 0.005
         group.rotation.offset.y += deltaX * 0.005
