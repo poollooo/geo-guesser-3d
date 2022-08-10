@@ -163,15 +163,6 @@ let lastCoordinatesSelected
 function animate() {
     requestAnimationFrame(animate)
     renderer.render(scene, camera)
-    // group.rotation.y += 0.002
-
-    // if (mouse.x) {
-    //   gsap.to(group.rotation, {
-    //     x: -mouse.y * 1.8,
-    //     y: mouse.x * 1.8,
-    //     duration: 2
-    //   })
-    // }
 
     // update the picking ray with the camera and mouse position
     raycaster.setFromCamera(mouse, camera)
@@ -250,7 +241,7 @@ addEventListener('mousemove', (event) => {
     if (mouse.down) {
         // event.preventDefault() is used to prevent the text on the left of the globe to get selected when the mouse is down
         event.preventDefault()
-        // console.log('turn the earth')
+        // turn the earth
         const deltaX = event.clientX - mouse.xPrev
         const deltaY = event.clientY - mouse.yPrev
 
@@ -311,19 +302,19 @@ playButton.addEventListener('click', () => {
         gameInstructions()
         console.log('counter is', counter)
     } else if (counter <= randomExoticPlacesArray.length) {
-        scoreElement.textContent = `Score : ${score}`
         instructionTitle.innerHTML = `Thought it would be easy ?<br>Make your best guess !`
         instruction.innerHTML = `<img class="rounded-md" src="${randomExoticPlacesArray[counter].image}">`
         playButton.style.display = 'none'
         counter++;
-        console.log('counter is', counter)
     }
 })
 
 popUpEl.addEventListener('click', () => {
+    let wrongGuess = 1;
     if (counter >= 2) {
         if (checkIfCountryIsCorrect(lastCountrySelected)) {
             console.log('correct')
+            distance(randomExoticPlacesArray[counter - 1].latlng ,lastCoordinatesSelected)
             instructionTitle.innerHTML = `Congratttts!<br>You got it right! See, you're not that bad after all 👏`
             playButton.style.display = 'block'
             playButton.classList.add('content')
@@ -333,13 +324,17 @@ popUpEl.addEventListener('click', () => {
             scoreElement.textContent = `Score : ${score}`
         } else {
             console.log('wrong')
-            instructionTitle.innerHTML = `<span class="no-wrap"> You selected ${lastCountrySelected} which is ${distanceInKm} kms away..<br>You can do better, try again!`
-            score += Math.floor((-0.1 * distanceInKm))
+            distance(randomExoticPlacesArray[counter - 1].latlng ,lastCoordinatesSelected)
+            instructionTitle.innerHTML = `
+            You selected ${lastCountrySelected} which is ${distanceInKm} kms away..
+            <br>
+            You guessed wrong ${wrongGuess} times, try again!`
+            wrongGuess++;
+            score += Math.floor((-distanceInKm / 10))
             console.log('score is', score)
             scoreElement.textContent = `Score : ${score}`
         }
     }
-    distance(randomExoticPlacesArray[counter - 1].latlng ,lastCoordinatesSelected)
 })
 
 // console.log('last lat', lastCoordinatesSelected[0])
