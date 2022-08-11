@@ -13,8 +13,6 @@ import * as geolib from 'geolib'
 
 
 const canvasContainer = document.querySelector('#canvasContainer')
-// const isWebsiteLoaded = document.addEventListener("DOMContentLoaded", ready);
-// console.log('isWebsiteLoaded', isWebsiteLoaded)
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, canvasContainer.offsetWidth / canvasContainer.offsetHeight, 0.1, 1000)
@@ -208,15 +206,7 @@ function animate() {
 }
 
 
-window.onload = () => {
-    animate()
-    instructionTitle.innerHTML = `Ready to explore the most iconic places on earth ?`
-    instruction.innerHTML = `
-    Millions of people travel to the same places over and over again.
-    <br>
-    Broaden your view of the world by discovering the most rural, remote, and beautifull places in the world.`
-    playButton.textContent = 'Play now'
-  }
+animate()
 
 canvasContainer.addEventListener('mousedown', ({ clientX, clientY }) => {
     mouse.down = true;
