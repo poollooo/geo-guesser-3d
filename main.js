@@ -299,6 +299,8 @@ playButton.addEventListener('click', () => {
     }
 })
 
+let wrongGuess = 1;
+
 popUpEl.addEventListener('click', () => {
     let wrongGuess = 1;
     if (counter >= 1 && counter < randomExoticPlacesArray.length) {
