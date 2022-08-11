@@ -2,7 +2,7 @@ import './tailwind.css'
 import * as THREE from 'three'
 import gsap from 'gsap'
 import countries from './countries.json'
-import cities from './world-cities-filtered.json'
+// import cities from './world-cities-filtered.json'
 import vertexShader from './shaders/vertex.glsl'
 import fragmentShader from './shaders/fragment.glsl'
 import atmosphereVertexShader from './shaders/atmosphereVertex.glsl'
@@ -88,10 +88,8 @@ camera.position.z = 10
 
 function createBoxes(countries) {
     countries.forEach((country) => {
-        const scale = country.population / 1000000000
         const lat = country.latlng[0]
         const lng = country.latlng[1]
-        const zScale = 0.8 * scale
 
         const box = new THREE.Mesh(
             new THREE.BoxGeometry(0.14, 0.14, 0.5),
@@ -284,10 +282,10 @@ console.log('random Array is :', randomExoticPlacesArray)
 const playButton = document.querySelector('#play-button')
 let counter = 0;
 let score = 0;
+let distanceInKm = 0;
 let instructionTitle = document.querySelector('#instructionTitle')
 let instruction = document.querySelector('#instruction')
 let scoreElement = document.querySelector('#score')
-let distanceInKm = 0;
 
 playButton.addEventListener('click', () => {
     if (counter === 0) {
