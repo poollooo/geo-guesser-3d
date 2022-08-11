@@ -205,7 +205,6 @@ function animate() {
         popUpEl.addEventListener('mouseup', () => {
             countrySelected = []
         })
-        // console.log('countrySelected.length - 1 is :', countrySelected.length)
     }
     renderer.render(scene, camera)
 }
@@ -216,21 +215,16 @@ canvasContainer.addEventListener('mousedown', ({ clientX, clientY }) => {
     mouse.down = true;
     mouse.xPrev = clientX;
     mouse.yPrev = clientY;
-    // console.log(mouse.down)
 })
 
 addEventListener('mousemove', (event) => {
     if (innerWidth >= 1280) {
         mouse.x = ((event.clientX - innerWidth / 2) / (innerWidth / 2)) * 2 - 1
         mouse.y = -(event.clientY / innerHeight) * 2 + 1
-        // console.log(mouse.x)
     } else {
         const offset = canvasContainer.popUpElBoundingClientRect().top
         mouse.x = (event.clientX / innerWidth) * 2 - 1
         mouse.y = -((event.clientY - offset) / innerHeight) * 2 + 1
-        // mouse.x = ((event.clientX - innerWidth / 2) / (innerWidth / 2)) * 2 - 1
-        // mouse.y = -(event.clientY / innerHeight) * 2 + 1
-        // console.log(mouse.y)
     }
 
     gsap.set(popUpEl, {
@@ -267,7 +261,7 @@ addEventListener('mouseup', () => {
 
 // Game logic
 
-// Randomly select an exotic place from the given list
+// Randomly select a place from the given json file
 function fisherYatesShuffle(arr) {
     for (let i = arr.length; i > 0; i--) {
         const j = Math.floor(Math.random() * i)
@@ -296,33 +290,30 @@ let scoreElement = document.querySelector('#score')
 let distanceInKm = 0;
 
 playButton.addEventListener('click', () => {
-    console.log('clicked on play button')
     if (counter === 0) {
         gameInstructions()
-        console.log('first counter is :', counter)
-    } else if (counter <= randomExoticPlacesArray.length) {
+    } else if (counter < randomExoticPlacesArray.length) {
         instructionTitle.innerHTML = `Thought it would be easy ?<br>Make your best guess !`
-        instruction.innerHTML = `<img class="rounded-md" src="${randomExoticPlacesArray[counter].image}">`
+        instruction.innerHTML = `<img class="rounded-md w-full" src="${randomExoticPlacesArray[counter].image}">`
         playButton.style.display = 'none'
         counter++;
+    } else if (playButton.textContent === `Play again`) {
+        replayGame()
     }
 })
 
 popUpEl.addEventListener('click', () => {
     let wrongGuess = 1;
-    if (counter >= 2) {
+    if (counter >= 1 && counter < randomExoticPlacesArray.length) {
         if (checkIfCountryIsCorrect(lastCountrySelected)) {
-            console.log('correct')
             distance(randomExoticPlacesArray[counter - 1].latlng ,lastCoordinatesSelected)
             instructionTitle.innerHTML = `Congratttts!<br>You got it right! See, you're not that bad after all 👏`
             playButton.style.display = 'block'
             playButton.classList.add('content')
             playButton.textContent = `Show me a cool place`
             score += Math.floor((10 * distanceInKm))
-            console.log('score is', score)
             scoreElement.textContent = `Score : ${score}`
         } else {
-            console.log('wrong')
             distance(randomExoticPlacesArray[counter - 1].latlng ,lastCoordinatesSelected)
             instructionTitle.innerHTML = `
             You selected ${lastCountrySelected} which is ${distanceInKm} kms away..
@@ -330,18 +321,14 @@ popUpEl.addEventListener('click', () => {
             You guessed wrong ${wrongGuess} times, try again!`
             wrongGuess++;
             score += Math.floor((-distanceInKm / 10))
-            console.log('score is', score)
             scoreElement.textContent = `Score : ${score}`
         }
+    } else if (counter === randomExoticPlacesArray.length) {
+        finishedGame()
     }
 })
 
-// console.log('last lat', lastCoordinatesSelected[0])
-// console.log('last long', lastCoordinatesSelected[1])
-
 function checkIfCountryIsCorrect(country) {
-    console.log('counter wazzza is', counter)
-    // console.log('lastCountrySelected is :', country)
     if (country === randomExoticPlacesArray[counter - 1].country) {
         return true
     } else {
@@ -356,19 +343,27 @@ function gameInstructions() {
     counter++;
 }
 
+function finishedGame() {
+    instructionTitle.innerHTML = `Well done Einstein ! You've finished the best geo guessser game!<br>Your score is ${score}, which isn't bad considering you're not a geo geek!`
+    instruction.innerHTML = `<img class="rounded-md w-full" src="https://media0.giphy.com/media/g9582DNuQppxC/giphy.gif?cid=ecf05e476q6oodnky5jp03alw2n7p4ws24rdawecqk7mlhsv&rid=giphy.gif&ct=g">`
+    playButton.style.display = 'block'
+    playButton.classList.add('content')
+    playButton.textContent = `Play again`
+}
+
+function replayGame() {
+    instructionTitle.innerHTML = `Welcome again traveler 🌴<br> Heres a little reminder on the rules:`
+    instruction.innerHTML = `- You will be presented with images from the most exotic and remote places in the world.<br>- Your mission is to guess in which country the picture was taken. <br>- The closer you are, the more points you'll score!`
+    playButton.textContent = `I'm ready to play!`
+    counter = 1;
+    score = 0;
+    scoreElement.textContent = `Score : ${score}`
+}
 
 
 function distance(givenCoordinates ,userCoordinates) {
-    //return positive latitude and longitude
-    // givenCoordinates = [0,0]
-
-    console.log('coordinate that should be negative are', userCoordinates)
-    console.log('Positive coordinates which should be positive are :', userCoordinates)
     distanceInKm = Math.floor(geolib.getDistance(givenCoordinates, userCoordinates) / 1000)
-    console.log('distance in km is ', distanceInKm)
 }
-
-console.log('distance is :', distanceInKm)
 
 
 
