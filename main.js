@@ -371,5 +371,3 @@ function replayGame() {
 function distance(givenCoordinates ,userCoordinates) {
     distanceInKm = Math.floor(geolib.getDistance(givenCoordinates, userCoordinates) / 1000)
 }
-
-finishedGame()
