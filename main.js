@@ -302,7 +302,6 @@ playButton.addEventListener('click', () => {
 let wrongGuess = 1;
 
 popUpEl.addEventListener('click', () => {
-    let wrongGuess = 1;
     if (counter >= 1 && counter < randomExoticPlacesArray.length) {
         if (checkIfCountryIsCorrect(lastCountrySelected)) {
             distance(randomExoticPlacesArray[counter - 1].latlng ,lastCoordinatesSelected)
@@ -310,7 +309,7 @@ popUpEl.addEventListener('click', () => {
             playButton.style.display = 'block'
             playButton.classList.add('content')
             playButton.textContent = `Show me another cool place`
-            score += Math.floor((10 * distanceInKm))
+            score += Math.floor((distanceInKm * 20))
             scoreElement.textContent = `Score : ${score}`
         } else {
             distance(randomExoticPlacesArray[counter - 1].latlng ,lastCoordinatesSelected)
@@ -319,7 +318,7 @@ popUpEl.addEventListener('click', () => {
             <br>
             You guessed wrong ${wrongGuess} times, try again!`
             wrongGuess++;
-            score += Math.floor((-distanceInKm / 10))
+            score += Math.floor((-distanceInKm * 2))
             scoreElement.textContent = `Score : ${score}`
         }
     } else if (counter === randomExoticPlacesArray.length) {
@@ -343,7 +342,7 @@ function gameInstructions() {
 }
 
 function finishedGame() {
-    if (score > 25000) {
+    if (score === 0) {
         instructionTitle.innerHTML = `Bravo !<p class="text-2xl">You've finished the best Geo Guesser game with a score of ${score} 👏</p><p class="text-2xl mt-2"> Are you ready for the next level Geomaster friend?</p>`
         instruction.innerHTML = `<img class="rounded-md w-full" src="https://media0.giphy.com/media/g9582DNuQppxC/giphy.gif?cid=ecf05e476q6oodnky5jp03alw2n7p4ws24rdawecqk7mlhsv&rid=giphy.gif&ct=g">`
         playButton.style.display = 'block'
@@ -372,3 +371,5 @@ function replayGame() {
 function distance(givenCoordinates ,userCoordinates) {
     distanceInKm = Math.floor(geolib.getDistance(givenCoordinates, userCoordinates) / 1000)
 }
+
+finishedGame()
