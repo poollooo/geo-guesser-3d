@@ -46,8 +46,6 @@ const sphere = new THREE.Mesh(
 const atmosphere = new THREE.Mesh(
     new THREE.SphereGeometry(5, 50, 50),
     new THREE.ShaderMaterial({
-        // vertexShader: atmosphereVertexShader,
-        // fragmentShader: atmosphereFragmentShader
         vertexShader: atmosphereVertexShader,
         fragmentShader: atmosphereFragmentShader,
         blending: THREE.AdditiveBlending,
