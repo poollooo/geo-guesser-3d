@@ -3,25 +3,25 @@
     "country": "Colombia",
     "city": "Medellin",
     "latlng": [6.230833, -75.590553],
-    "image": "https://cdn.vox-cdn.com/thumbor/lZfsDbUWteyO86SLX9vZ2v1KyT4=/0x0:2700x1800/1200x0/filters:focal(0x0:2700x1800):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/7043223/NARCOS_207_00658R.jpg"
+    "image": "https://media2.giphy.com/media/jc2PkKKr3clTBekMzn/200w.webp?cid=ecf05e47t9cj1luybxbxc8cey0ni25t01787cnmmuicp01ax&rid=200w.webp&ct=g"
     },
     {
     "country": "Venezuela",
     "city": "Tepui",
     "latlng": [5.8025, -62.4672],
-    "image": "https://static1.thetravelimages.com/wordpress/wp-content/uploads/2018/08/Lentoa.net_.jpg?q=50&fit=crop&w=1500&dpr=1.5"
+    "image": "https://media1.giphy.com/media/VT8uDrCcddXlm/giphy.gif?cid=ecf05e47168kkrhs648sx5uh7qgwcgex9mgbx8ah07hxs25g&rid=giphy.gif&ct=g"
     },
     {
     "country": "Chile",
     "city": "Easter Island",
     "latlng": [-27.104671, -109.360481],
-    "image": "https://image.cnbcfm.com/api/v1/image/106397140-1582085216779gettyimages-511506221.jpeg?v=1582085391"
+    "image": "https://media3.giphy.com/media/SbdDzU2QYWA24/giphy.gif?cid=ecf05e470d2jnj2qxcbbyn8lmxcuu6hnbn6graktnn3l6jsr&rid=giphy.gif&ct=g"
     },
     {
     "country": "Bolivia",
     "city": "Salar de Uyuni",
     "latlng": [-20.266562, -67.620552],
-    "image": "https://media.cntraveler.com/photos/61b9ce334dff55cd8434f7ab/master/w_2580%2Cc_limit/Salar-de-Uyuni-Bolivia-GettyImages-465844068.jpg"
+    "image": "https://media0.giphy.com/media/hBAUlLXenYTxm/100.webp?cid=ecf05e47efkpnbmw64s8zzhawgi8l9m08gkcb8go7hq9mfdh&rid=100.webp&ct=g"
     },
     {
     "country": "Georgia",
@@ -54,9 +54,21 @@
     "image": "https://imgtoolkit.culturebase.org/?color=FFFFFF&quality=8&ar_ratio=1.3&format=jpg&file=https%3A%2F%2Fimg.culturebase.org%2F9%2F3%2F9%2Fc%2Fc%2Fpic_1504879485_939ccc193caa502a2925dd1fb1338502.jpeg&do=cropOut&width=1200&height=585"
     },
     {
-    "country": "China",
-    "city": "Avatar Mountains",
-    "latlng": [29.1167, 110.4784],
-    "image": "https://imgtoolkit.culturebase.org/?color=FFFFFF&quality=8&ar_ratio=1.3&format=jpg&file=https%3A%2F%2Fimg.culturebase.org%2F9%2F3%2F9%2Fc%2Fc%2Fpic_1504879485_939ccc193caa502a2925dd1fb1338502.jpeg&do=cropOut&width=1200&height=585"
+    "country": "Canada",
+    "city": "Titanic Crash",
+    "latlng": [ 41.7325, 49.9469],
+    "image": "https://media4.giphy.com/media/tk39314j32wGk/giphy.gif?cid=ecf05e47m23rv9za3fkf8018j3unhsrdvd7rp52qywu8361h&rid=giphy.gif&ct=g"
+    },
+    {
+    "country": "Nepal",
+    "city": "Everest Base Camp",
+    "latlng": [28.0022, 86.8523],
+    "image": "https://media2.giphy.com/media/11UCE4Hi2HEpPi/giphy.gif?cid=ecf05e476um4r99izrsuyzejyweva7oqn4qv4umzye3hu68x&rid=giphy.gif&ct=g"
+    },
+    {
+    "country": "Japan",
+    "city": "Naruto City",
+    "latlng": [35.6762, 139.6503],
+    "image": "https://media2.giphy.com/media/qYHlTos5CDu0/giphy.gif?cid=ecf05e473qxoi41ruj0kydposw34vnjy08c4s8myx586u3cd&rid=giphy.gif&ct=g"
     }
 ]
