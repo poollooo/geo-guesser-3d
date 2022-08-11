@@ -21,7 +21,7 @@
     "country": "Bolivia",
     "city": "Salar de Uyuni",
     "latlng": [-20.266562, -67.620552],
-    "image": "https://media0.giphy.com/media/hBAUlLXenYTxm/100.webp?cid=ecf05e47efkpnbmw64s8zzhawgi8l9m08gkcb8go7hq9mfdh&rid=100.webp&ct=g"
+    "image": "https://media4.giphy.com/media/PivUoEqa51GQU/giphy.gif?cid=ecf05e4759q3u6z4ta87d1ri3jmtm8qwpogk5qp6x19zhzd4&rid=giphy.gif&ct=g"
     },
     {
     "country": "Georgia",
@@ -70,5 +70,23 @@
     "city": "Naruto City",
     "latlng": [35.6762, 139.6503],
     "image": "https://media2.giphy.com/media/qYHlTos5CDu0/giphy.gif?cid=ecf05e473qxoi41ruj0kydposw34vnjy08c4s8myx586u3cd&rid=giphy.gif&ct=g"
+    },
+    {
+    "country": "Norway",
+    "city": "Lofoten Islands",
+    "latlng": [69.6492, 18.9553],
+    "image": "https://media0.giphy.com/media/1GtPTyh7sV6LK/200w.webp?cid=ecf05e4714mw8ztvlai4lsrdyimqzvs5rmmem5c3regut8ji&rid=200w.webp&ct=g"
+    },
+    {
+    "country": "Iceland",
+    "city": "Volcano",
+    "latlng": [64.9631, -19.0208],
+    "image": "https://media0.giphy.com/media/1GtPTyh7sV6LK/200w.webp?cid=ecf05e4714mw8ztvlai4lsrdyimqzvs5rmmem5c3regut8ji&rid=200w.webp&ct=g"
+    },
+    {
+    "country": "Greenland",
+    "city": "Polar Bear",
+    "latlng": [71.7069, -42.6043],
+    "image": "https://media3.giphy.com/media/KFPrX1Ti0DNtDY9OU7/giphy.gif?cid=ecf05e471gg1v9z5cqes5t04ekmgxwg1j3u4zupkjlr9a39c&rid=giphy.gif&ct=g"
     }
 ]
