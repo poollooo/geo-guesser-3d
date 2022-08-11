@@ -123,8 +123,8 @@ function createBoxes(countries) {
         group.add(box)
 
         gsap.to(box.scale, {
-            z: 1.4,
-            duration: 2,
+            z: 1.8,
+            duration: Math.random() + 1,
             yoyo: true,
             repeat: -1,
             ease: 'linear',
