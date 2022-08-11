@@ -340,11 +340,20 @@ function gameInstructions() {
 }
 
 function finishedGame() {
-    instructionTitle.innerHTML = `Bravo !<p class="text-2xl whitespace-nowrap">You've finished the best geo guesser game 👏</p><p class="text-2xl mt-2">Your score is ${score}, which isn't bad considering you're not a geo geek!</p>`
-    instruction.innerHTML = `<img class="rounded-md w-full" src="https://media0.giphy.com/media/g9582DNuQppxC/giphy.gif?cid=ecf05e476q6oodnky5jp03alw2n7p4ws24rdawecqk7mlhsv&rid=giphy.gif&ct=g">`
-    playButton.style.display = 'block'
-    playButton.classList.add('content')
-    playButton.textContent = `Play again`
+    if (score > 25000) {
+        instructionTitle.innerHTML = `Bravo !<p class="text-2xl">You've finished the best Geo Guesser game with a score of ${score} 👏</p><p class="text-2xl mt-2"> Are you ready for the next level Geomaster friend?</p>`
+        instruction.innerHTML = `<img class="rounded-md w-full" src="https://media0.giphy.com/media/g9582DNuQppxC/giphy.gif?cid=ecf05e476q6oodnky5jp03alw2n7p4ws24rdawecqk7mlhsv&rid=giphy.gif&ct=g">`
+        playButton.style.display = 'block'
+        playButton.classList.add('content')
+        playButton.textContent = `I'm ready for the next level, let's go!`
+    }
+    else {
+        instructionTitle.innerHTML = `Hmmm.. can't you do better ?<p class="text-2xl">You've finished with a score of ${score}.</p><p class="text-2xl mt-2"> It's quite bad, it's actually below the score of an average american. 😂</p>`
+        instruction.innerHTML = `<img class="rounded-md w-full" src="https://media3.giphy.com/media/1ryrwFNXqNjC8/giphy.gif?cid=ecf05e479zb4xf5tz7lc1affbyxglnzenfwvztfmsfm0it3c&rid=giphy.gif&ct=g">`
+        playButton.style.display = 'block'
+        playButton.classList.add('content')
+        playButton.textContent = `Play again`
+    }
 }
 
 function replayGame() {
