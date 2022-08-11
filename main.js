@@ -177,7 +177,7 @@ function animate() {
     )
 
     group.children.forEach((mesh) => {
-        mesh.material.opacity = 0.4
+        mesh.material.opacity = 0.5
     })
 
     // doesn't show the country name if there is no hover
