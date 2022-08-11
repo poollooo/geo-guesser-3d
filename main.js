@@ -297,10 +297,9 @@ let distanceInKm = 0;
 
 playButton.addEventListener('click', () => {
     console.log('clicked on play button')
-    console.log('first counter is :', counter)
     if (counter === 0) {
         gameInstructions()
-        console.log('counter is', counter)
+        console.log('first counter is :', counter)
     } else if (counter <= randomExoticPlacesArray.length) {
         instructionTitle.innerHTML = `Thought it would be easy ?<br>Make your best guess !`
         instruction.innerHTML = `<img class="rounded-md" src="${randomExoticPlacesArray[counter].image}">`
