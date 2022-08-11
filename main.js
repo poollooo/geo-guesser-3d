@@ -284,7 +284,7 @@ function getRandomSelection(n, array) {
     return selected
 }
 
-let randomExoticPlacesArray = getRandomSelection(7, exoticPlaces)
+let randomExoticPlacesArray = getRandomSelection(exoticPlaces.length, exoticPlaces)
 console.log('random Array is :', randomExoticPlacesArray)
 
 const playButton = document.querySelector('#play-button')
