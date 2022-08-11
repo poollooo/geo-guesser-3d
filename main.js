@@ -307,10 +307,10 @@ popUpEl.addEventListener('click', () => {
     if (counter >= 1 && counter < randomExoticPlacesArray.length) {
         if (checkIfCountryIsCorrect(lastCountrySelected)) {
             distance(randomExoticPlacesArray[counter - 1].latlng ,lastCoordinatesSelected)
-            instructionTitle.innerHTML = `Congratttts!<br>You got it right! See, you're not that bad after all 👏`
+            instructionTitle.innerHTML = `Congrats! You got it right!<br><p class="text-2xl">See, you're not that bad after all 👏</p>`
             playButton.style.display = 'block'
             playButton.classList.add('content')
-            playButton.textContent = `Show me a cool place`
+            playButton.textContent = `Show me another cool place`
             score += Math.floor((10 * distanceInKm))
             scoreElement.textContent = `Score : ${score}`
         } else {
@@ -344,7 +344,7 @@ function gameInstructions() {
 }
 
 function finishedGame() {
-    instructionTitle.innerHTML = `Well done Einstein ! You've finished the best geo guessser game!<br>Your score is ${score}, which isn't bad considering you're not a geo geek!`
+    instructionTitle.innerHTML = `Bravo !<p class="text-2xl whitespace-nowrap">You've finished the best geo guesser game 👏</p><p class="text-2xl mt-2">Your score is ${score}, which isn't bad considering you're not a geo geek!</p>`
     instruction.innerHTML = `<img class="rounded-md w-full" src="https://media0.giphy.com/media/g9582DNuQppxC/giphy.gif?cid=ecf05e476q6oodnky5jp03alw2n7p4ws24rdawecqk7mlhsv&rid=giphy.gif&ct=g">`
     playButton.style.display = 'block'
     playButton.classList.add('content')
@@ -352,7 +352,7 @@ function finishedGame() {
 }
 
 function replayGame() {
-    instructionTitle.innerHTML = `Welcome again traveler 🌴<br> Heres a little reminder on the rules:`
+    instructionTitle.innerHTML = `Welcome again traveler 👀<br> Heres a little reminder on the rules:`
     instruction.innerHTML = `- You will be presented with images from the most exotic and remote places in the world.<br>- Your mission is to guess in which country the picture was taken. <br>- The closer you are, the more points you'll score!`
     playButton.textContent = `I'm ready to play!`
     counter = 1;
@@ -364,6 +364,3 @@ function replayGame() {
 function distance(givenCoordinates ,userCoordinates) {
     distanceInKm = Math.floor(geolib.getDistance(givenCoordinates, userCoordinates) / 1000)
 }
-
-
-
