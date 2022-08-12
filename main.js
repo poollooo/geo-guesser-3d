@@ -275,7 +275,9 @@ function getRandomSelection(n, array) {
     return selected
 }
 
-let randomExoticPlacesArray = getRandomSelection(7, exoticPlaces)
+const lengthOfSelection = 6
+
+let randomExoticPlacesArray = getRandomSelection(lengthOfSelection, exoticPlaces)
 console.log('random Array is :', randomExoticPlacesArray)
 
 const playButton = document.querySelector('#play-button')
@@ -294,7 +296,7 @@ playButton.addEventListener('click', () => {
         instruction.innerHTML = `<img class="rounded-md w-full" src="${randomExoticPlacesArray[counter].image}">`
         playButton.style.display = 'none'
         counter++;
-    } else if (playButton.textContent === `Play again`) {
+    } else if (playButton.textContent === `Play again`  ) {
         replayGame()
     }
 })
@@ -302,7 +304,7 @@ playButton.addEventListener('click', () => {
 let wrongGuess = 1;
 
 popUpEl.addEventListener('click', () => {
-    if (counter >= 1 && counter < randomExoticPlacesArray.length) {
+    if (counter >= 1 && counter < lengthOfSelection) {
         if (checkIfCountryIsCorrect(lastCountrySelected)) {
             distance(randomExoticPlacesArray[counter - 1].latlng ,lastCoordinatesSelected)
             instructionTitle.innerHTML = `Congrats! You got it right!<br><p class="text-2xl">See, you're not that bad after all 👏</p>`
@@ -321,7 +323,7 @@ popUpEl.addEventListener('click', () => {
             score += Math.floor((-distanceInKm * 2))
             scoreElement.textContent = `Score : ${score}`
         }
-    } else if (counter === randomExoticPlacesArray.length) {
+    } else if (counter === lengthOfSelection) {
         finishedGame()
     }
 })
@@ -347,7 +349,7 @@ function finishedGame() {
         instruction.innerHTML = `<img class="rounded-md w-full" src="https://media0.giphy.com/media/g9582DNuQppxC/giphy.gif?cid=ecf05e476q6oodnky5jp03alw2n7p4ws24rdawecqk7mlhsv&rid=giphy.gif&ct=g">`
         playButton.style.display = 'block'
         playButton.classList.add('content')
-        playButton.textContent = `I'm ready for the next level, let's go!`
+        playButton.textContent = `Play again`
     }
     else {
         instructionTitle.innerHTML = `Hmmm.. can't you do better ?<p class="text-2xl">You've finished with a score of ${score}.</p><p class="text-2xl mt-2"> It's quite bad, it's actually below the score of an average american. 😂</p>`
