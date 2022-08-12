@@ -275,7 +275,7 @@ function getRandomSelection(n, array) {
     return selected
 }
 
-let randomExoticPlacesArray = getRandomSelection(exoticPlaces.length, exoticPlaces)
+let randomExoticPlacesArray = getRandomSelection(7, exoticPlaces)
 console.log('random Array is :', randomExoticPlacesArray)
 
 const playButton = document.querySelector('#play-button')
@@ -342,7 +342,7 @@ function gameInstructions() {
 }
 
 function finishedGame() {
-    if (score === 0) {
+    if (score > 25000) {
         instructionTitle.innerHTML = `Bravo !<p class="text-2xl">You've finished the best Geo Guesser game with a score of ${score} 👏</p><p class="text-2xl mt-2"> Are you ready for the next level Geomaster friend?</p>`
         instruction.innerHTML = `<img class="rounded-md w-full" src="https://media0.giphy.com/media/g9582DNuQppxC/giphy.gif?cid=ecf05e476q6oodnky5jp03alw2n7p4ws24rdawecqk7mlhsv&rid=giphy.gif&ct=g">`
         playButton.style.display = 'block'
